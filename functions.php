@@ -145,7 +145,7 @@ function email_exists($user_email) {
 
 }
 
-function register_user($username, $user_firstname, $user_lastname, $user_email, $password) {
+function register_user($username, $user_firstname, $user_lastname, $user_email, $password,$user_address, $user_contact_no) {
 global $connection;
 $username = $_POST['username'];
 $user_firstname = $_POST['firstname'];
@@ -207,11 +207,12 @@ function login_user($username, $password) {
         $_SESSION['lastname'] = $db_user_lastname;
         $_SESSION['email'] = $db_user_email;
         $_SESSION['user_role'] = $db_user_role;
-        header("location: ../admin");
+        header("location: dashboard.php");
 
 
     } else {
-    redirect("signin.php");
+    // redirect("login.php");
+    echo "username or password wrong";
 
     }
 }

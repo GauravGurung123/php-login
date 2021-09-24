@@ -33,9 +33,9 @@ $error = [
     unset($error[$key]);
     }
 
-    } //foreach
+    } 
 if (empty($error)) {
-    register_user($username, $user_firstname, $user_lastname, $user_email, $password);
+    register_user($username, $user_firstname, $user_lastname, $user_email, $password, $user_address, $user_contact_no);
     login_user($username, $password);
 }
 
@@ -93,7 +93,7 @@ if (empty($error)) {
   </div>
   
 
-  <button type="submit" name="submit" class="btn btn-primary mt-3">Register</button>
+  <button type="submit" name="submit" value="submit" class="btn btn-primary mt-3">Register</button>
 </form>
 
 </div>
