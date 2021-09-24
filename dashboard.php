@@ -23,6 +23,13 @@
                         <div class="card-body">
                         <h5 class="card-title">Users</h5>
                         <p class="card-text"><?php echo $user_counts = recordCount('users'); ?></p>
+                       
+                        <?php
+                        // if (!is_admin($_SESSION['username'])) {
+                        // header("location: index.php");
+                        // }
+
+                        ?>
                         <a href="view_all_users.php" class="btn btn-primary">View all</a>
                         </div>
                     </div>
