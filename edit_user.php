@@ -1,18 +1,4 @@
-<?php ob_start(); ?>
-<?php session_start(); ?>
-<?php include "dbconfig.php"; ?>
-<?php include "functions.php" ?>
-<?php include "includes/header.php" ?>
-
 <div class="container mt-4">
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Welcome to <a href='dashboard.php'>dashboard!</a><small>&nbsp;<?php echo $_SESSION['username']; ?></small>
-                        </h1>
-                    </div>
-                </div>
               
                 <?php
                 if(isset($_GET['edit_user'])) {
@@ -81,7 +67,7 @@
                     <label for="user_lastname">Last Name</label>
                     <input type="text" class="form-control" name="user_lastname" value="<?php echo $user_lastname; ?>">
                 </div>
-
+<?php if (is_admin(($_SESSION['username']))): ?>
                 <div class="form-group mt-2 mb-2">
                     <select name="user_role" id="">
                         <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
@@ -98,7 +84,7 @@
 
                     </select>
                 </div>
-
+<?php endif; ?>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" name="username" value="<?php echo $username; ?>">
@@ -112,9 +98,11 @@
                 <input autocomplete="off" type="password" class="form-control" name="user_password">
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" name="edit_user" value="Update User">
+                <input type="submit" class="btn btn-primary mt-2" name="edit_user" value="Update User">
             </div>
 
             </form>
+
     </div>
 </div>
+<hr>

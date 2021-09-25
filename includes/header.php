@@ -1,3 +1,8 @@
+<?php ob_start(); ?>
+<?php include "dbconfig.php"; ?>
+<?php include "functions.php" ?>
+<?php session_start(); ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,7 +33,7 @@
         </li>
 
 <?php if (isset($_SESSION['user_role'])): ?>
-  <a class='nav-link' href="admin">ADMIN</a>
+  <a class='nav-link' href="dashboard.php">ADMIN</a>
     <span class='p-2'> <?php echo $_SESSION['username'] ?></span>
     <a class="btn btn-primary bg-danger"  href="logout.php">Logout</a>
 

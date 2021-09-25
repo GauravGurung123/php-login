@@ -1,21 +1,7 @@
-<?php ob_start(); ?>
-<?php session_start(); ?>
-<?php include "dbconfig.php"; ?>
-<?php include "functions.php" ?>
+
 <?php include "includes/header.php" ?>
 
-<?php
-    if(isset($_GET['source'])) {
-        $source = $_GET['source']; 
-    } else {
-        $source = '';
-    }
 
-    if($source=='edit_user'){
-        include "edit_user.php";
-    }
-
-?>
 
 
 <div class="container mt-4">
@@ -27,6 +13,18 @@
                         </h1>
                     </div>
                 </div>
+    <?php
+    if(isset($_GET['source'])) {
+        $source = $_GET['source']; 
+    } else {
+        $source = '';
+    }
+
+    if($source=='edit_user'){
+        include "edit_user.php";
+    }
+
+?>
         <div class="container-fluid">
             <h2 class="text-center mt-4">All Users</h2>                
             <table class="table table-bordered table-hover">
