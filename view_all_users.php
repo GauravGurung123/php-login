@@ -99,7 +99,7 @@ if(isset($_GET['change_to_member'])) {
 
 }
 
-//delete comment query
+//delete user query
 if(isset($_GET['delete'])) {
     if (isset($_SESSION['user_role'])) {
         if ($_SESSION['user_role'] == 'admin') {
