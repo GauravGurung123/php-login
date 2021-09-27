@@ -33,11 +33,13 @@
         </li>
 
 <?php if (isset($_SESSION['user_role'])): ?>
+
   <a class='nav-link' href="dashboard.php">ADMIN</a>
     <span class='p-2'> <?php echo $_SESSION['username'] ?></span>
     <a class="btn btn-primary bg-danger"  href="logout.php">Logout</a>
 
-<?php else: ?>
+<?php  else: ?>
+  
        <li class="nav-item">
           <a class="nav-link" href="index.php">Register</a>
         </li>

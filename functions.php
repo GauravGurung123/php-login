@@ -9,63 +9,11 @@ function escape($string) {
     return mysqli_real_escape_string($connection, trim($string));
 }
 
-function users_online() {
-    if (isset($_GET['onlineusers'])) {
-        global $connection;
-        if (!$connection) {
-    session_start();
-    include ("../includes/db.php");
-
-        $session = session_id();
-        $time = time();
-        $time_out_in_seconds = 30;
-        $time_out = $time - $time_out_in_seconds;
-
-        $query = "select * from users_online where session = '$session' ";
-        $send_query = mysqli_query($connection, $query);
-        $count = mysqli_num_rows($send_query);
-        if ($count == null) {
-            mysqli_query($connection, "insert into users_online(session , time ) values('$session', '$time')");
-        } else {
-            mysqli_query($connection, "UPDATE users_online SET time = '$time' where  session = '$session'");
-        }
-        $users_online_query = mysqli_query($connection, "select * from users_online where time > '$time_out'");
-        echo $count_user = mysqli_num_rows($users_online_query);
-    }
-
-    } // GET request isset()
-}
-users_online();
-
 function confirm($result) {
     global $connection;
 if(!$result) {
     die ("Query Failed. " . mysqli_error($connection));
     }
-}
-
-function insert_categories(){
-    global $connection;
-
-    if(isset($_POST['submit'])) {
-        $fac_name = $_POST['fac_name'];
-    
-        if($fac_name == "" || empty($fac_name)) {
-            echo "This feild should not be empty ";
-        } else {
-            $query = "insert into faculty(fac_name) ";
-            $query .= "value('{$fac_name}') ";
-    
-            $create_category_query = mysqli_query($connection, $query);
-    
-            if(!$create_category_query) {
-                die('QUERY FAILED' . mysqli_error($connection));
-            }
-    
-        }
-    
-    }
-
 }
 
 function recordCount($table) {
@@ -134,7 +82,6 @@ $password = $_POST['password'];
 $user_address = $_POST['address'];
 // $user_contact_no = $_POST['contact'];
 
-
 $username      = mysqli_real_escape_string($connection, $username);
 $user_firstname = mysqli_real_escape_string($connection, $user_firstname);
 $user_lastname  = mysqli_real_escape_string($connection, $user_lastname);
@@ -201,8 +148,6 @@ function login_user($username, $password) {
         $_SESSION['user_role'] = $db_user_role;
         $log_action="loggedin";
 
-     
-
         header("location: dashboard.php");
         create_log($_SESSION['username'],$_SESSION['user_id'], $log_action); 
 
@@ -219,8 +164,6 @@ function isLoggedIn() {
     }
     return false;
 }
-
-
 
 function create_log($log_username, $log_user_id, $log_action) {
     global $connection;
