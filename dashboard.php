@@ -69,9 +69,12 @@
         $contact_document = $row['contact_document'];
 
         }
-        echo "<a href='dashboard.php?source=edit_contact&edit_contact={$contact_id}'class='btn btn-primary'>Edit</a>";
-
-?>    
+        if(!isset($contact_id)){
+            echo "<a href='dashboard.php?source=edit_contact&edit_contact={$contact_id}'class='col text-center'</div>Edit</a>" ;
+        }
+            echo "<div class='row'><a href='dashboard.php?source=add_contact'class='col text-center'>Add</a>" ;
+       
+    ?>    
                         <?php else: ?>
         <!-- Admin contact card -->
 
@@ -100,6 +103,9 @@
 
     if($source=='edit_contact'){
         include "edit_contact.php";
+    }
+    if($source=='add_contact'){
+        include "add_contact.php";
     }
 
 ?>

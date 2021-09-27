@@ -6,7 +6,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $user_email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $user_address = trim($_POST['address']);
-    $user_contact_no = trim($_POST['contact']);
+    // $user_contact_no = trim($_POST['contact']);
 
   
 $error = [
@@ -35,7 +35,7 @@ $error = [
 
     } 
 if (empty($error)) {
-    register_user($username, $user_firstname, $user_lastname, $user_email, $password, $user_address, $user_contact_no);
+    register_user($username, $user_firstname, $user_lastname, $user_email, $password, $user_address);
     login_user($username, $password);
 }
 
@@ -87,10 +87,10 @@ if (empty($error)) {
     <label for="inputAddress">Address</label>
     <input type="text" class="form-control" id="inputAddress" name="address" placeholder="1234 Main St">
   </div>
-  <div class="col mb-3">
+  <!-- <div class="col mb-3">
     <label for="inputAddress2">Contact number</label>
     <input type="text" class="form-control" id="inputContact" name="contact" placeholder="980******">
-  </div>
+  </div> -->
   
 
   <button type="submit" name="submit" value="submit" class="btn btn-primary mt-3">Register</button>

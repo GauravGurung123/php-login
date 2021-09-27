@@ -33,7 +33,7 @@ if(isset($_POST['edit_contact'])) {
 
     $query = "UPDATE contacts SET ";
     $query .="contact_no = '{$contact_no}', ";
-    $query .="contact_document = '{$contact_document}', ";
+    $query .="contact_document = '{$contact_document}' ";
     $query .="WHERE contact_id = {$the_contact_id} ";
 
     $update_contact_query = mysqli_query($connection, $query);
@@ -45,18 +45,18 @@ if(isset($_POST['edit_contact'])) {
 <div class="container">
 
 <form action="" method="post" enctype="multipart/form-data"> 
-  <div class="row ">
+<div class="row ">
   <div class="col mb-3">
     <label for="inputContact">Contact number</label>
     <input type="text" class="form-control" value="<?php echo $contact_no ?>" id="inputContacts" name="contact" placeholder="980******">
   </div>
     <div class="col mb-3">
     <label for="inputFile">Upload file</label>
-    <input type="file" class="form-control" accept=".jpg, .jpeg, .pdf, .doc, .docx" 
+    <input type="file" class="form-control"  
     id="inputFiles" name="document">
   </div>
   <div class="col mb-3">
-  <input type="submit" name="create_contact" class="btn btn-primary mt-4" value="Add">
+  <input type="submit" name="edit_contact" class="btn btn-primary mt-4" value="Update">
   </div>
    <div class="col mb-3 p-5">
       <p><a href="documents/<?php echo $contact_document?>"><?php echo $contact_document?></a></p>

@@ -68,35 +68,6 @@ function insert_categories(){
 
 }
 
-function find_categories() {
-    global $connection;
-    $query = "select * from faculty";
-    $sel_categories = mysqli_query($connection, $query);
-
-          while($row = mysqli_fetch_assoc($sel_categories)) {
-            $fac_id = $row['fac_id'];
-            $fac_name = $row['fac_name'];
-            echo "<tr>";
-            echo "<td>{$fac_id}</td>" ; 
-            echo "<td>{$fac_name}</td>" ; 
-            echo "<td><a href='categories.php?delete={$fac_id}'>Delete</a></td>" ; 
-            echo "<td><a href='categories.php?edit={$fac_id}'>Edit</a></td>" ;
-            echo "</tr>";
-
-         }
-}
-
-function delete_categories() {
-    global $connection;
-    if(isset($_GET['delete'])) {
-        $del_fac_id = $_GET['delete'];
-        $query = "delete from faculty where fac_id = {$del_fac_id}";
-
-        $delete_query = mysqli_query($connection, $query);
-        header("location: categories.php");
-    }
-}
-
 function recordCount($table) {
     global $connection;
     $query = "SELECT * FROM " . $table;
@@ -153,7 +124,7 @@ function email_exists($user_email) {
 
 }
 
-function register_user($username, $user_firstname, $user_lastname, $user_email, $password,$user_address, $user_contact_no) {
+function register_user($username, $user_firstname, $user_lastname, $user_email, $password,$user_address) {
 global $connection;
 $username = $_POST['username'];
 $user_firstname = $_POST['firstname'];
@@ -161,7 +132,7 @@ $user_lastname = $_POST['lastname'];
 $user_email = $_POST['email'];
 $password = $_POST['password'];
 $user_address = $_POST['address'];
-$user_contact_no = $_POST['contact'];
+// $user_contact_no = $_POST['contact'];
 
 
 $username      = mysqli_real_escape_string($connection, $username);
@@ -170,12 +141,23 @@ $user_lastname  = mysqli_real_escape_string($connection, $user_lastname);
 $user_email    = mysqli_real_escape_string($connection, $user_email);
 $password      = mysqli_real_escape_string($connection, $password);
 $user_address      = mysqli_real_escape_string($connection, $user_address);
-$user_contact_no      = mysqli_real_escape_string($connection, $user_contact_no);
+// $user_contact_no      = mysqli_real_escape_string($connection, $user_contact_no);
 $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
-$query = "INSERT INTO users(username, user_firstname, user_lastname, user_email, user_password, user_address, user_contact_no) ";
-$query .= "VALUES('$username', '$user_firstname', '$user_lastname', '$user_email', '$password','$user_address', '$user_contact_no' )";
+$query = "INSERT INTO users(username, user_firstname, user_lastname, user_email, user_password, user_address) ";
+$query .= "VALUES('$username', '$user_firstname', '$user_lastname', '$user_email', '$password','$user_address' )";
 $register_user_query = mysqli_query($connection, $query);
+
+$query = "select user_id from users where username = '{$username}' ";
+$sel_userid_query = mysqli_query($connection, $query);
+while ($row = mysqli_fetch_array($sel_userid_query)) {
+    $user_id = $row['user_id'];
+}
+
+$log_action= mysqli_real_escape_string($connection,"new User Registered");
+
+create_log($username, $user_id, $log_action); 
+
 confirm($register_user_query);
 if (mysqli_affected_rows($register_user_query = 1)) {
     login_user($username, $password);
@@ -217,8 +199,12 @@ function login_user($username, $password) {
         $_SESSION['lastname'] = $db_user_lastname;
         $_SESSION['email'] = $db_user_email;
         $_SESSION['user_role'] = $db_user_role;
-        header("location: dashboard.php");
+        $log_action="loggedin";
 
+     
+
+        header("location: dashboard.php");
+        create_log($_SESSION['username'],$_SESSION['user_id'], $log_action); 
 
     } else {
     // redirect("login.php");
@@ -232,6 +218,23 @@ function isLoggedIn() {
         return true;
     }
     return false;
+}
+
+
+
+function create_log($log_username, $log_user_id, $log_action) {
+    global $connection;
+    $log_username = $log_username;
+    $log_username = $log_username;
+    $log_action = $log_action;
+
+
+    $log_action  = mysqli_real_escape_string($connection, $log_action);
+
+    $query = "INSERT INTO logs(log_user_id, log_username, log_action) ";
+    $query .= "VALUES('$log_user_id', '$log_username', '$log_action')";
+    $register_log_query = mysqli_query($connection, $query);
+
 }
 
 
