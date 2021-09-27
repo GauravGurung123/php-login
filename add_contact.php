@@ -19,6 +19,8 @@ if(isset($_POST['create_contact'])){
     $query = "insert into contacts(contact_user_id, contact_no, contact_document)";
     $query .= "values({$_SESSION['user_id']}, '{$contact_no}','$contact_document')";
 
+    $log_action="Contact added";
+    create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
     $create_contact_query = mysqli_query($connection, $query);
     confirm($create_contact_query);
     }

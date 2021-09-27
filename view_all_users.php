@@ -41,7 +41,7 @@
             </thead>
             <tbody>
             <?php
-            $query = "SELECT * FROM users";
+            $query = "SELECT * FROM users ORDER BY username";
             $sel_users = mysqli_query($connection, $query);
 
             while($row = mysqli_fetch_assoc($sel_users)) {
@@ -81,6 +81,9 @@ if(isset($_GET['change_to_admin'])) {
     $the_user_id = $_GET['change_to_admin'];
 
     $query = "UPDATE users SET user_role = 'admin' where  user_id = $the_user_id  ";
+    $log_action="Changed to admin";
+    create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
+
     $change_to_admin_query = mysqli_query($connection, $query);
     header("location: view_all_users.php");
 
@@ -90,6 +93,8 @@ if(isset($_GET['change_to_member'])) {
     $the_user_id = $_GET['change_to_member'];
 
     $query = "UPDATE users SET user_role = 'member' where  user_id = $the_user_id  ";
+    $log_action="Changed to member";
+    create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
     $change_to_member_query = mysqli_query($connection, $query);
     header("location: view_all_users.php");
 
@@ -102,6 +107,8 @@ if(isset($_GET['delete'])) {
         $the_user_id = mysqli_real_escape_string($connection,$_GET['delete']);
 
         $query = "DELETE FROM users where user_id = {$the_user_id} ";
+        $log_action="User deleted";
+        create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
         $del_user_query = mysqli_query($connection, $query);
         header("location: view_all_users.php");
         }

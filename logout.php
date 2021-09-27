@@ -1,12 +1,9 @@
 <?php ob_start(); ?>
-<?php include "functions.php" ?>
 <?php  session_start(); ?>
 <?php include "dbconfig.php"; ?>
 
 
 <?php
-// $log_username=$_SESSION['username'];
-// $log_user_id=$_SESSION['user_id'];
 $log_action="Loggedout";
 create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
 

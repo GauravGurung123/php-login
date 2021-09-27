@@ -73,10 +73,11 @@
 <?php
 //delete contact query
 if(isset($_GET['delete'])) {
-
+    $log_action="contact deleted";
     $the_contact_id = mysqli_real_escape_string($connection,$_GET['delete']);
 
     $query = "DELETE FROM contacts where contact_id = {$the_contact_id} ";
+    create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
     $del_contact_query = mysqli_query($connection, $query);
     header("location: view_all_contacts.php");
 

@@ -28,6 +28,8 @@ if(isset($_POST['edit_user'])) {
     $query .="username = '{$username}', ";
     $query .="user_email = '{$user_email}' ";
     $query .="WHERE user_id = {$the_user_id} ";
+    $log_action="User profile updated";
+    create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
 
     $update_user_query = mysqli_query($connection, $query);
     confirm($update_user_query);
@@ -88,7 +90,8 @@ if (!empty($user_password)) {
         $query = "UPDATE users SET ";
         $query .="user_password = '{$hashed_password}' ";
         $query .="WHERE user_id = {$the_user_id} ";
-
+        $log_action="User password updated";
+        create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
         $update_user_query = mysqli_query($connection, $query);
         confirm($update_user_query);
         echo "Password Updated Succesfully";

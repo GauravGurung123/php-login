@@ -36,6 +36,8 @@ if(isset($_POST['edit_contact'])) {
     $query .="contact_document = '{$contact_document}' ";
     $query .="WHERE contact_id = {$the_contact_id} ";
 
+    $log_action="Contact updated";
+    create_log($_SESSION['username'], $_SESSION['user_id'], $log_action);
     $update_contact_query = mysqli_query($connection, $query);
     confirm($update_contact_query);
     }
