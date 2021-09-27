@@ -69,7 +69,7 @@
         $contact_document = $row['contact_document'];
 
         }
-        echo "<a href='dashboard.php?source=edit_contact&edit_contact={$contact_id}'>Edit</a>";
+        echo "<a href='dashboard.php?source=edit_contact&edit_contact={$contact_id}'class='btn btn-primary'>Edit</a>";
 
 ?>    
                         <?php else: ?>

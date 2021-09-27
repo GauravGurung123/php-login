@@ -10,10 +10,7 @@ if(isset($_GET['edit_contact'])) {
         $contact_id = $row['contact_id'];
         $contact_no = $row['contact_no'];
         $contact_document = $row['contact_document'];
-        // $contact_document_type = ['jpeg', 'msword'];
     }
-    // header('content-type: image/jpeg');
-    // echo $contact_document;
 
 }
 
@@ -31,7 +28,6 @@ if(isset($_POST['edit_contact'])) {
 
     if(!in_array($file_extension, $allowed_extension)){
       echo "only jpg, jpeg, pdf, doc and docx allowed";
-      // redirect("add_contact.php");
     }
     else{
 
@@ -60,7 +56,7 @@ if(isset($_POST['edit_contact'])) {
     id="inputFiles" name="document">
   </div>
   <div class="col mb-3">
-  <input type="submit" name="create_contact" class="btn btn-primar" value="Add">
+  <input type="submit" name="create_contact" class="btn btn-primary mt-4" value="Add">
   </div>
    <div class="col mb-3 p-5">
       <p><a href="documents/<?php echo $contact_document?>"><?php echo $contact_document?></a></p>
