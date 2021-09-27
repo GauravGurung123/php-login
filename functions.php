@@ -82,12 +82,12 @@ $password = $_POST['password'];
 $user_address = $_POST['address'];
 // $user_contact_no = $_POST['contact'];
 
-$username      = mysqli_real_escape_string($connection, $username);
-$user_firstname = mysqli_real_escape_string($connection, $user_firstname);
-$user_lastname  = mysqli_real_escape_string($connection, $user_lastname);
-$user_email    = mysqli_real_escape_string($connection, $user_email);
-$password      = mysqli_real_escape_string($connection, $password);
-$user_address      = mysqli_real_escape_string($connection, $user_address);
+$username      = escape($username);
+$user_firstname = escape($user_firstname);
+$user_lastname  = escape($user_lastname);
+$user_email    = escape($user_email);
+$password      = escape($password);
+$user_address      = escape($user_address);
 // $user_contact_no      = mysqli_real_escape_string($connection, $user_contact_no);
 $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
@@ -117,8 +117,8 @@ function login_user($username, $password) {
     global $connection;
     $username = trim($username);
     $password = trim($password);
-    $username = mysqli_real_escape_string($connection, $username);
-    $password = mysqli_real_escape_string($connection, $password);
+    $username = escape($username);
+    $password = escape($password);
 
     $query = "select * from users where username = '{$username}' ";
     $sel_username_query = mysqli_query($connection, $query);
@@ -172,7 +172,7 @@ function create_log($log_username, $log_user_id, $log_action) {
     $log_action = $log_action;
 
 
-    $log_action  = mysqli_real_escape_string($connection, $log_action);
+    $log_action  = escape($log_action);
 
     $query = "INSERT INTO logs(log_user_id, log_username, log_action) ";
     $query .= "VALUES('$log_user_id', '$log_username', '$log_action')";

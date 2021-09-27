@@ -85,6 +85,7 @@
                     <?php endif; ?> 
                 </div> <!-- /.card ended -->
             </div>  <!-- /.col-sm-3 -->
+              <?php if (is_admin($_SESSION['username'])): ?>
             <div class="col-sm-3 mt-4">
         <!-- Activity Log card -->
             <div class="card">
@@ -95,6 +96,7 @@
                     </div>
                 </div> <!-- /.card ended -->
             </div>  <!-- /.col-sm-3 mt-4 -->
+            <?php endif; ?>
     </div><!-- /.row ended -->
     <div class="row">
     <div class="col-12">

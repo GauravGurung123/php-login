@@ -1,7 +1,6 @@
-<?php ob_start(); ?>
 <?php  session_start(); ?>
+<?php include "functions.php" ?>
 <?php include "dbconfig.php"; ?>
-
 
 <?php
 $log_action="Loggedout";
