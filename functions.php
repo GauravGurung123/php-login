@@ -104,6 +104,14 @@ function recordCount($table) {
     return mysqli_num_rows($sel_all_post);
 }
 
+function contactCount($id) {
+    global $connection;
+    $query = "select * from contacts where contact_user_id=" . $id;
+    $sel_all_post = mysqli_query($connection, $query);
+    return mysqli_num_rows($sel_all_post);
+}
+
+
 function is_admin($username) {
     global $connection;
     $query = "select user_role from users where username = '$username'";
@@ -202,6 +210,7 @@ function login_user($username, $password) {
     }
 
     if(password_verify($password, $db_user_password)){
+        $_SESSION['user_id'] = $db_user_id;
         $_SESSION['username'] = $db_username;
         $_SESSION['firstname'] = $db_user_firstname;
         $_SESSION['lastname'] = $db_user_lastname;

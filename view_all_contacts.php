@@ -25,15 +25,15 @@
 
 ?>
         <div class="container-fluid">
-            <h2 class="text-center mt-4">All Contact</h2>                
+
+            <h2 class="text-center mt-4">All Contact</h2> 
+            <span><a href='view_all_contacts.php?source=add_contact'>Add New Contact</a></span>      
             <table class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Contact no</th>
-                <!-- <th>Email</th> -->
                 <th>Document</th>
-                <th>Create</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -41,7 +41,11 @@
             <tbody>
 
             <?php
-            $query = "select * from contacts";
+            if (!is_admin($_SESSION['username'])){
+            $query = "select * from contacts where contact_user_id={$_SESSION['user_id']}";
+            } else {
+                $query = "select * from contacts";
+            }
             $sel_contacts = mysqli_query($connection, $query);
 
         while($row = mysqli_fetch_assoc($sel_contacts)) {
@@ -50,13 +54,9 @@
             $contact_document = $row['contact_document'];
 
                 echo "<tr>";
-                echo "<td>aasa$contact_id</td>";
+                echo "<td>$contact_id</td>";
                 echo "<td>$contact_no</td>";
                 echo "<td>doc</td>";
-                // echo "<td>{$user_lastname}</td>";
-                // echo "<td>{$user_email}</td>";
-                // echo "<td>{$user_role}</td>";
-                echo "<td><a href='view_all_contacts.php?source=add_contact'>Add</a></td>";
                 echo "<td><a href='view_all_contacts.php?source=edit_contact&edit_contact={$contact_id}'>Edit</a></td>";
                 echo "<td><a href='view_all_contacts.php?delete={$contact_id}'>Delete</a></td>";
                 echo "</tr>";

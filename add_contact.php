@@ -1,42 +1,43 @@
-<script src="../js/script.js"></script>
-
 <?php
-if(isset($_POST['create_post'])){
-    $post_cat_id = $_POST['post_category'];
-    $post_title = escape($_POST['post_title']);
-    $post_user = $_SESSION['username'];
-    $post_tags = escape($_POST['post_tags']);
-    $post_content = escape($_POST['post_content']);
-    $post_status = escape($_POST['post_status']);
+if(isset($_POST['create_contact'])){
+    $contact_no = $_POST['contact'];
+    $contact_document = $_FILES['document']['name'];
+    $contact_document_temp = $_FILES['document']['tmp_name'];
 
-    $post_date = date('y-m-d');
+    move_uploaded_file($contact_document_temp, "documents/$contact_document");
 
-    
-    $query = "INSERT INTO posts(post_cat_id,post_title,post_user,post_date,post_content,post_tags,post_status)
-    VALUES({$post_cat_id},'{$post_title}','{$post_user}',now(),'{$post_content}','{$post_tags}','{$post_status}')";
+    $allowed_extension = array('jpeg', 'jpg', 'pdf', 'doc', 'docx');
+    $filename = $_FILES['document']['name'];
+    $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-    $create_post_query = mysqli_query($connection, $query);
-    confirm($create_post_query);
-    $the_post_id = mysqli_insert_id($connection);
-    echo "<p class='bg-success'>Post Created Successfully! &nbsp; <a href='../post.php?p_id={$the_post_id}'>View Post</a>
-            &nbsp;||&nbsp; <a href='posts.php'>Edit Other Posts</a></p>";
+    if(!in_array($file_extension, $allowed_extension)){
+      echo "only jpg, jpeg, pdf, doc and docx allowed";
+      // redirect("add_contact.php");
+    }
+    else{
+   
+    $query = "insert into contacts(contact_user_id, contact_no, contact_document)";
+    $query .= "values({$_SESSION['user_id']}, '{$contact_no}','$contact_document')";
 
+    $create_contact_query = mysqli_query($connection, $query);
+    confirm($create_contact_query);
+    }
 }
 ?>
 
 
-<form action="index.php" method="post" enctype="multipart/form-data"> 
-  <div class="row ">
+<form action="" method="post" enctype="multipart/form-data"> 
+  <div class="row mt-2">
   <div class="col mb-3">
-    <label for="inputAddress2">Contact number</label>
-    <input type="text" class="form-control" id="inputContact" name="contact" placeholder="980******">
+    <label for="inputContact">Contact number</label>
+    <input type="text" class="form-control" id="inputContacts" name="contact" placeholder="980******">
   </div>
-   <div class="col mb-3">
-    <label for="inputAddress2">Contact number</label>
-    <input type="file" class="form-control" id="inputContact" name="file" placeholder="980******">
+    <div class="col mb-3">
+    <label for="inputFile">Upload file</label>
+    <input type="file" class="form-control" id="inputFiles" name="document" placeholder="jpg/jpeg/pdf/doc">
   </div>
   <div class="col mb-3">
-  <button type="submit" name="submit" value="submit" class="btn btn-primary mt-3">Add</button>
+  <input type="submit" name="create_contact"  class="btn btn-primary mt-4" value="Add">
   </div>
   </div>
 </form>

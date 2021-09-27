@@ -1,5 +1,4 @@
 <div class="container mt-4">
-              
                 <?php
                 if(isset($_GET['edit_user'])) {
                 $the_user_id = $_GET['edit_user'];
@@ -15,7 +14,6 @@
                 $user_lastname = $row['user_lastname'];
                 $user_email = $row['user_email'];
                 $user_role = $row['user_role'];
-
                 }
 
                 }
@@ -27,7 +25,7 @@
                 $user_email = $_POST['user_email'];
                 $user_password = $_POST['user_password'];
 
-                if (!empty($user_password)) {
+                if (empty($user_password)) {
                     $query_password = "select user_password from users where user_id = $the_user_id";
                     $get_user_query = mysqli_query($connection, $query_password);
                     confirm($get_user_query);
@@ -36,7 +34,6 @@
 
                     if ($db_user_password != $user_password) {
                         $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
-
                         $query = "UPDATE users SET ";
                         $query .="user_firstname = '{$user_firstname}', ";
                         $query .="user_lastname = '{$user_lastname}', ";
@@ -67,24 +64,23 @@
                     <label for="user_lastname">Last Name</label>
                     <input type="text" class="form-control" name="user_lastname" value="<?php echo $user_lastname; ?>">
                 </div>
-<?php if (is_admin(($_SESSION['username']))): ?>
                 <div class="form-group mt-2 mb-2">
                     <select name="user_role" id="">
                         <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
-                        <?php
+                       <?php
+                       if (!is_admin($_SESSION['username'])){
                         if($user_role == 'admin') {
                             echo "<option value='member'>member</option>";
                         } 
                         else {
                             echo "<option value='admin'>admin</option>";
                         }
-
-                        ?>
-                        >
+                    }
+                ?>
+                        
 
                     </select>
                 </div>
-<?php endif; ?>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control" name="username" value="<?php echo $username; ?>">
@@ -101,7 +97,7 @@
                 <input type="submit" class="btn btn-primary mt-2" name="edit_user" value="Update User">
             </div>
 
-            </form>
+        </form>
 
     </div>
 </div>
