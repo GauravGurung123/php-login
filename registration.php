@@ -7,8 +7,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $password = trim($_POST['password']);
     $user_address = trim($_POST['address']);
     // $user_contact_no = trim($_POST['contact']);
-
-  
 $error = [
     'username'=> '',
     'firstname'=> '',
@@ -37,20 +35,14 @@ $error = [
 if (empty($error)) {
     register_user($username, $user_firstname, $user_lastname, $user_email, $password, $user_address);
     login_user($username, $password);
+  }
 }
-
-
-}
-
-
 ?>
-
 
 <div class="container border border-secondary p-5">
 <h2>Please register here</h2>
 <hr>
 <form action="index.php" method="post" autocomplete="on"> 
-   
   <div class="row ">
     <div class="col mb-3">
     <label for="inputAddress">User Name</label>
@@ -58,14 +50,12 @@ if (empty($error)) {
     value="<?php echo isset($username) ? $username : '' ?>" required placeholder="must be unique">
     <small><?php echo isset($error['username']) ? $error['username'] : '' ?></small>
   </div>
-
    <div class="form-group col-md-6 mb-3">
       <label for="inputEmail4">Email</label>
       <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email"
       value="<?php echo isset($user_email) ? $user_email : '' ?>" required>
    <small style="font-size: small; color: #e94e02"><?php echo isset($error['email']) ? $error['email'] : '' ?></small>
     </div>
-
   <div class="form-group col-md-6 mb-3">
     <label for="inputAddress">first Name </label>
     <input type="text" class="form-control" id="inputName" name="firstname" placeholder="Enter first name"
@@ -76,8 +66,6 @@ if (empty($error)) {
     <input type="text" class="form-control" id="inputName" name="lastname" placeholder="Enter last name"
     value="<?php echo isset($user_lastname) ? $user_lastname : '' ?>" required>
   </div>
-
-   
     <div class="col mb-3">
       <label for="inputPassword4">Password</label>
       <input type="password" class="form-control" id="inputPassword4" name="password" placeholder="Password" required>
@@ -87,11 +75,6 @@ if (empty($error)) {
     <label for="inputAddress">Address</label>
     <input type="text" class="form-control" id="inputAddress" name="address" placeholder="1234 Main St">
   </div>
-  <!-- <div class="col mb-3">
-    <label for="inputAddress2">Contact number</label>
-    <input type="text" class="form-control" id="inputContact" name="contact" placeholder="980******">
-  </div> -->
-  
 
   <button type="submit" name="submit" value="submit" class="btn btn-primary mt-3">Register</button>
 </form>

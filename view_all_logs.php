@@ -11,7 +11,6 @@
                 </div>
 
         <div class="container-fluid">
-
             <h2 class="text-center mt-4">All Logs</h2> 
             <table class="table table-bordered table-hover">
             <thead>

@@ -12,7 +12,6 @@ if(isset($_POST['create_contact'])){
 
     if(!in_array($file_extension, $allowed_extension)){
       echo "only jpg, jpeg, pdf, doc and docx allowed";
-      // redirect("add_contact.php");
     }
     else{
    
@@ -26,8 +25,6 @@ if(isset($_POST['create_contact'])){
     }
 }
 ?>
-
-
 <form action="" method="post" enctype="multipart/form-data"> 
   <div class="row mt-2">
   <div class="col mb-3">
